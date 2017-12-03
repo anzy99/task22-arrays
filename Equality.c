@@ -25,7 +25,7 @@ return err;
 }
 
 
-int searchArray (int * array,int elementsCount)
+int * searchArray (int * array,int elementsCount)
 {
 	int i,k,m,a=0;
 	int answer;
@@ -47,7 +47,7 @@ int searchArray (int * array,int elementsCount)
 	{
 		if(array[i]<array[i-1])
 			a=1;
-		if(array[i]==array[i-1])
+		if(array[i]==array[i-1]&&(a>0))
 			a++;
 		if(array[i]>array[i-1]&&(a>0))
 		{
@@ -60,8 +60,6 @@ int searchArray (int * array,int elementsCount)
 		{
 			a=0;
 		}
-		if(minElement>array[i])
-			minElement=array[i];
 	}
 	//Проверка является ли последний элемент массива частью множественного локального минимума
 	if (elementsCount>1)
@@ -91,7 +89,7 @@ int searchArray (int * array,int elementsCount)
 		if((helpArray[i]==1)&&(helpArray[i-1]==1))
 			localMinRow++;
 	}
-	//Инициализация и заполнение результирующего массива
+	//Инициализация и заполнение  массива
 	answer=elementsCount-localMinRow;
 	answerArray=(int *)malloc((elementsCount-localMinRow)*sizeof(int));
 	numberOfPoints=(int *)malloc((elementsCount-localMinRow)*sizeof(int));
@@ -119,31 +117,13 @@ int searchArray (int * array,int elementsCount)
 			numberOfPoints[k-1]++;
 		}
 	}
-	//Вывод результирующего массива
-	printf("Answer array:\n");
-	for(i=0;i<answer;i++){
-		printf("%i ",answerArray[i]);
-	}
-	printf("\n");
-	//Вывод результирующего массива
-	printf("Local min:\n");
-	for(i=0;i<answer;i++){
-		printf("%i ",isElementLocalMin[i]);
-	}
-	printf("\n");
-	//Вывод результирующего массива
-	printf("Number of points:\n");
-	for(i=0;i<answer;i++){
-		printf("%i ",numberOfPoints[i]);
-	}
-	printf("\n");
 	
 	i=0;
 	while(i<answer)
 	{
 		if (isElementLocalMin[i]==1)
 		{
-			if (i!=(answer-1))
+			if (i!=(answer-1))//not last
 			{
 				for(k=(i+1);k<answer;k++)
 				{
@@ -165,26 +145,6 @@ int searchArray (int * array,int elementsCount)
 	}
 	
 	
-	//Вывод результирующего массива
-	printf("Answer array:\n");
-	for(i=0;i<answer;i++){
-		printf("%i ",answerArray[i]);
-	}
-	printf("\n");
-	//Вывод результирующего массива
-	printf("Local min:\n");
-	for(i=0;i<answer;i++){
-		printf("%i ",isElementLocalMin[i]);
-	}
-	printf("\n");
-	//Вывод результирующего массива
-	printf("Number of points:\n");
-	for(i=0;i<answer;i++){
-		printf("%i ",numberOfPoints[i]);
-	}
-	printf("\n");
-	
-	
 	m=0;
 	resultArray=(int *)malloc(elementsCount*sizeof(int));
 	i=0;
@@ -198,14 +158,7 @@ int searchArray (int * array,int elementsCount)
 		m++;
 	}
 	
-	//Вывод результирующего массива
-	printf("Result array:\n");
-	for(i=0;i<elementsCount;i++){
-		printf("%i ", resultArray[i]);
-	}
-	printf("\n");
-	
-	return answer;
+	return resultArray;
 }
 
 

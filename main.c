@@ -6,8 +6,8 @@
 int main(void)
 {
  int err=0,countOfElements=0;
- int *array;
- int answer;
+ int *array,*resultArray;
+ int answer, i;
  err=InputArray("data.txt", &array, &countOfElements);
  if(err!=0)
   printf("Error!!!\n");
@@ -16,8 +16,14 @@ int main(void)
 	if (countOfElements==0){
 		printf("File is empty!!!");
 	} else {
-		answer=searchArray(array,countOfElements);
-		printf("Number of elements in new array: %i",answer);
+		
+		resultArray=searchArray(array,countOfElements);
+		printf("Answer array is:\n");
+		for (i=0;i<countOfElements;i++)
+		{
+			printf("%i ",resultArray[i]);
+		}
+		printf("\n");
 	}
   }
 return err;
